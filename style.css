@@ -1,0 +1,88 @@
+:root {
+    --ec-green: #004d25;  /* El Camino dark green */
+    --ec-gold: #fdb913;   /* El Camino gold */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f0f0f0;
+}
+
+.game-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.game-header {
+    background-color: var(--ec-green);
+    color: var(--ec-gold);
+    padding: 20px;
+    margin: -20px -20px 20px -20px;
+    border-radius: 8px 8px 0 0;
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.current-player {
+    font-size: 1.2em;
+    margin: 10px 0;
+    color: #333;
+    text-align: center;
+}
+
+.game-history {
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #f8f8f8;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid var(--ec-green);
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin: 10px 0;
+    border: 2px solid var(--ec-green);
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: var(--ec-green);
+    color: var(--ec-gold);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #003d1e;
+}
+
+.error {
+    color: red;
+    margin: 10px 0;
+    text-align: center;
+}
+
+#currentRequirement {
+    text-align: center;
+    color: var(--ec-green);
+    font-weight: bold;
+    margin: 10px 0;
+}

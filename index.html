@@ -1,63 +1,16 @@
+index.html
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NBA Name Game</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f0f0f0;
-        }
-        .game-container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .current-player {
-            font-size: 1.2em;
-            margin: 10px 0;
-            color: #333;
-        }
-        .game-history {
-            margin: 20px 0;
-            padding: 10px;
-            background-color: #f8f8f8;
-            border-radius: 4px;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-        input[type="text"] {
-            width: 100%;
-            padding: 8px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .error {
-            color: red;
-            margin: 10px 0;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="game-container">
-        <h1>NBA Name Game</h1>
+        <h1 class="game-header">NBA Name Game</h1>
         <div class="current-player">Player 1's turn</div>
         <div id="currentRequirement"></div>
         <div class="game-history" id="gameHistory"></div>
@@ -65,92 +18,6 @@
         <button onclick="submitName()">Submit</button>
         <div id="error" class="error"></div>
     </div>
-
-    <script>
-        // Sample NBA players database (you can expand this)
-        const nbaPlayers = [
-            "Michael Jordan", "LeBron James", "Kobe Bryant", "Stephen Curry",
-            "Kevin Durant", "Magic Johnson", "Larry Bird", "Tim Duncan",
-            "Shaquille O'Neal", "Karl Malone", "John Stockton", "Charles Barkley",
-            "David Robinson", "Patrick Ewing", "Hakeem Olajuwon", "Dirk Nowitzki",
-            "Steve Nash", "Allen Iverson", "Ray Allen", "Paul Pierce",
-            "Mitch Richmond", "Roy Hibbert", "Horace Grant", "George Karl"
-        ];
-
-        let gameHistory = [];
-        let currentPlayer = 1;
-        let lastUsedNames = new Set();
-
-        // Initialize game
-        function initializeGame() {
-            const randomPlayer = nbaPlayers[Math.floor(Math.random() * nbaPlayers.length)];
-            gameHistory.push({ player: "Auto", name: randomPlayer });
-            updateGameDisplay();
-        }
-
-        // Get last letter requirement
-        function getRequiredLetter() {
-            if (gameHistory.length === 0) return null;
-            const lastPlayer = gameHistory[gameHistory.length - 1].name;
-            const lastNames = lastPlayer.split(" ");
-            return lastNames[lastNames.length - 1][0].toUpperCase();
-        }
-
-        // Validate name
-        function validateName(name) {
-            if (!name) return "Please enter a name";
-            if (lastUsedNames.has(name.toLowerCase())) return "This name has already been used";
-            if (!nbaPlayers.includes(name)) return "This player is not in our database";
-            
-            const requiredLetter = getRequiredLetter();
-            if (requiredLetter && name.split(" ")[0][0].toUpperCase() !== requiredLetter) {
-                return `Name must start with the letter ${requiredLetter}`;
-            }
-            
-            return null;
-        }
-
-        // Submit name
-        function submitName() {
-            const input = document.getElementById("playerInput");
-            const name = input.value.trim();
-            const error = validateName(name);
-
-            if (error) {
-                document.getElementById("error").textContent = error;
-                return;
-            }
-
-            gameHistory.push({ player: `Player ${currentPlayer}`, name: name });
-            lastUsedNames.add(name.toLowerCase());
-            currentPlayer = currentPlayer === 1 ? 2 : 1;
-            input.value = "";
-            document.getElementById("error").textContent = "";
-            updateGameDisplay();
-        }
-
-        // Update game display
-        function updateGameDisplay() {
-            const historyDiv = document.getElementById("gameHistory");
-            historyDiv.innerHTML = gameHistory
-                .map(entry => `<div>${entry.player}: ${entry.name}</div>`)
-                .join("");
-
-            const currentPlayerDiv = document.querySelector(".current-player");
-            currentPlayerDiv.textContent = `Player ${currentPlayer}'s turn`;
-
-            const requirementDiv = document.getElementById("currentRequirement");
-            const requiredLetter = getRequiredLetter();
-            requirementDiv.textContent = requiredLetter 
-                ? `Next name must start with: ${requiredLetter}`
-                : "";
-
-            // Scroll to bottom of history
-            historyDiv.scrollTop = historyDiv.scrollHeight;
-        }
-
-        // Initialize game on load
-        window.onload = initializeGame;
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
