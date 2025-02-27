@@ -1,15 +1,32 @@
-// Sample NBA players database (you can expand this)
-const nbaPlayers = ["LeBron James", "Kobe Bryant", "Kevin Durant", "Stephen Curry", "Tim Duncan", "Dirk Nowitzki", "Dwyane Wade", "Chris Paul", "James Harden", "Russell Westbrook", "Anthony Davis", "Paul George", "Carmelo Anthony", "Blake Griffin", "Damian Lillard", "Kyrie Irving", "Giannis Antetokounmpo", "Joel Embiid", "Nikola Jokić", "Jayson Tatum", "Luka Dončić", "Devin Booker", "Karl-Anthony Towns", "Jimmy Butler", "Kawhi Leonard", "LaMarcus Aldridge", "DeMar DeRozan", "Klay Thompson", "Draymond Green", "Al Horford", "Kyle Lowry", "John Wall", "Bradley Beal", "Kevin Love", "Zach LaVine", "Trae Young", "Donovan Mitchell", "Jaylen Brown", "Jrue Holiday", "Brandon Ingram", "Zion Williamson", "Shai Gilgeous-Alexander", "Anthony Edwards", "Cade Cunningham", "Evan Mobley", "Jalen Green", "Scottie Barnes", "Tyrese Haliburton", "Desmond Bane", "Jaren Jackson Jr.", "Bam Adebayo", "Pascal Siakam", "Fred VanVleet", "Domantas Sabonis", "Julius Randle", "Kristaps Porziņģis", "De'Aaron Fox", "D'Angelo Russell", "Jarrett Allen", "Mikal Bridges", "OG Anunoby", "Michael Porter Jr.", "RJ Barrett", "Tyler Herro", "Jordan Poole", "James Wiseman", "Jonathan Kuminga", "Franz Wagner", "Jalen Suggs", "Josh Giddey", "Alperen Sengun", "Jabari Smith Jr.", "Chet Holmgren", "Paolo Banchero", "Bennedict Mathurin", "Jaden Ivey", "Keegan Murray", "Jabari Walker", "Shaedon Sharpe", "Jalen Duren", "Johnny Davis", "Ochai Agbaji", "AJ Griffin", "Mark Williams", "Jeremy Sochan", "Malaki Branham", "TyTy Washington Jr.", "Nikola Jović", "Walker Kessler", "David Roddy", "MarJon Beauchamp", "Blake Wesley", "Christian Braun", "Peyton Watson", "Andrew Nembhard", "Jaden Hardy", "Kennedy Chandler", "Max Christie", "Trevor Keels", "Bryce McGowens", "Josh Minott", "Ismael Kamagate", "Moussa Diabaté", "JD Davison", "Jabari Walker", "Tyrese Martin", "Karim Mane", "Moses Moody", "Jonathan Kuminga", "James Bouknight", "Davion Mitchell", "Chris Duarte", "Ziaire Williams", "Corey Kispert", "Jalen Johnson", "Isaiah Jackson", "Usman Garuba", "Josh Christopher", "Quentin Grimes", "Bones Hyland", "Cam Thomas", "Jaden Springer", "Day'Ron Sharpe", "Santi Aldama", "Rokas Jokubaitis", "Miles McBride", "Jason Preston", "Jeremiah Robinson-Earl", "Herbert Jones", "Ayo Dosunmu", "Neemias Queta", "Jared Butler", "Joe Wieskamp", "Brandon Boston Jr.", "Luka Garza", "Kessler Edwards", "David Johnson", "Sharife Cooper", "Marcus Zegarowski", "BJ Boston", "Isaiah Todd", "Jericho Sims", "Aaron Wiggins", "Scottie Lewis", "Georgios Kalaitzakis", "Sam Hauser", "Justin Champagnie", "Duane Washington Jr.", "Terry Taylor", "Mac McClung", "Javonte Smart", "Chaundee Brown Jr.", "Feron Hunt", "Jaden Shackelford", "Jules Bernard", "Ron Harper Jr.", "Johnny Juzang", "Michael Foster Jr.", "Dereon Seabron", "Jamaree Bouyea", "Keon Ellis", "Tyler Hall", "Darius Days", "Trevion Williams", "Buddy Boeheim", "Alondes Williams", "Justin Lewis", "Tevin Brown"];
+// Expanded NBA players database
+const nbaPlayers = [
+    "Michael Jordan", "LeBron James", "Kobe Bryant", "Stephen Curry",
+    "Kevin Durant", "Magic Johnson", "Larry Bird", "Tim Duncan",
+    "Shaquille O'Neal", "Karl Malone", "John Stockton", "Charles Barkley",
+    "David Robinson", "Patrick Ewing", "Hakeem Olajuwon", "Dirk Nowitzki",
+    "Steve Nash", "Allen Iverson", "Ray Allen", "Paul Pierce",
+    "Mitch Richmond", "Roy Hibbert", "Horace Grant", "George Karl",
+    "Kawhi Leonard", "Dwyane Wade", "Chris Paul", "Damian Lillard", 
+    "Luka Doncic", "James Harden", "Giannis Antetokounmpo", "Scottie Pippen",
+    "Carmelo Anthony", "Russell Westbrook", "Kyrie Irving", "Kevin Garnett",
+    "Anthony Davis", "Chris Bosh", "Draymond Green", "Klay Thompson"
+];
 
 let gameHistory = [];
 let currentPlayer = 1;
 let lastUsedNames = new Set();
+let scores = {1: 0, 2: 0};
 
 // Initialize game
 function initializeGame() {
     const randomPlayer = nbaPlayers[Math.floor(Math.random() * nbaPlayers.length)];
-    gameHistory.push({ player: "Auto", name: randomPlayer });
+    gameHistory.push({ 
+        player: "Auto", 
+        name: randomPlayer,
+        correct: null // Auto-generated, not scored
+    });
     updateGameDisplay();
+    updateScoreDisplay();
 }
 
 // Get last letter requirement
@@ -41,23 +58,59 @@ function submitName() {
     const error = validateName(name);
 
     if (error) {
+        // Incorrect answer
+        scores[currentPlayer] -= 1;
+        gameHistory.push({ 
+            player: `Player ${currentPlayer}`, 
+            name: name || "(Empty input)", 
+            correct: false,
+            error: error
+        });
         document.getElementById("error").textContent = error;
+        
+        // Switch to next player
+        currentPlayer = currentPlayer === 1 ? 2 : 1;
+        input.value = "";
+        updateGameDisplay();
+        updateScoreDisplay();
         return;
     }
 
-    gameHistory.push({ player: `Player ${currentPlayer}`, name: name });
+    // Correct answer
+    scores[currentPlayer] += 1;
+    gameHistory.push({ 
+        player: `Player ${currentPlayer}`, 
+        name: name, 
+        correct: true 
+    });
     lastUsedNames.add(name.toLowerCase());
+    
+    // Switch to next player
     currentPlayer = currentPlayer === 1 ? 2 : 1;
     input.value = "";
     document.getElementById("error").textContent = "";
     updateGameDisplay();
+    updateScoreDisplay();
 }
 
 // Update game display
 function updateGameDisplay() {
     const historyDiv = document.getElementById("gameHistory");
     historyDiv.innerHTML = gameHistory
-        .map(entry => `<div>${entry.player}: ${entry.name}</div>`)
+        .map(entry => {
+            let entryClass = '';
+            let resultText = '';
+            
+            if (entry.correct === true) {
+                entryClass = 'correct';
+                resultText = ' ✓ (+1 point)';
+            } else if (entry.correct === false) {
+                entryClass = 'incorrect';
+                resultText = ` ✗ (-1 point) - ${entry.error}`;
+            }
+            
+            return `<div class="${entryClass}">${entry.player}: ${entry.name}${resultText}</div>`;
+        })
         .join("");
 
     const currentPlayerDiv = document.querySelector(".current-player");
@@ -71,6 +124,16 @@ function updateGameDisplay() {
 
     // Scroll to bottom of history
     historyDiv.scrollTop = historyDiv.scrollHeight;
+}
+
+// Update score display
+function updateScoreDisplay() {
+    document.querySelector("#player1Score .score").textContent = scores[1];
+    document.querySelector("#player2Score .score").textContent = scores[2];
+    
+    // Update active player styling
+    document.getElementById("player1Score").classList.toggle("active", currentPlayer === 1);
+    document.getElementById("player2Score").classList.toggle("active", currentPlayer === 2);
 }
 
 // Add enter key support for input
