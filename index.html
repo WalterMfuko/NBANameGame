@@ -7,70 +7,58 @@
     <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-    <div id="lobby" class="lobby">lobby">
-        <h2>NBA Name Game - Online</h2>h2>
-        <button onclick="createGame()">Create New Game</button></button>
+    <div id="lobby" class="lobby">
+        <h2>NBA Name Game - Online</h2>
+        <button onclick="createGame()">Create New Game</button>
         <div class="join-game">
-            <input type="text" id="gameCodeInput" placeholder="Enter game code">ut" placeholder="Enter game code">
-            <button onclick="joinGame(document.getElementById('gameCodeInput').value)">entById('gameCodeInput').value)">
+            <input type="text" id="gameCodeInput" placeholder="Enter game code">
+            <button onclick="joinGame(document.getElementById('gameCodeInput').value)">
                 Join Game
             </button>
         </div>
     </div>
-    <div id="gameCode" class="game-code"></div>e"></div>
+    <div id="gameCode" class="game-code"></div>
     <div class="container">
         <div class="game-container">
             <h1 class="game-header">NBA Name Game</h1>
             <div class="difficulty-selector">
                 <select id="difficultySelect">
-                    <option value="EASY">Easy</option>n value="EASY">Easy</option>
-                    <option value="NORMAL" selected>Normal</option>ption>
+                    <option value="EASY">Easy</option>
+                    <option value="NORMAL" selected>Normal</option>
                     <option value="HARD">Hard</option>
                 </select>
             </div>
-            <div class="game-content">me-content">
-                <div class="scores-container">lass="scores-container">
+            <div class="game-content">
+                <div class="scores-container">
                     <div id="player1Score" class="score-box">
-                        <span class="player-label">Player 1</span>>
+                        <span class="player-label">Player 1</span>
                         <span class="score">0</span>
-                        <span class="streak"></span>n>
+                        <span class="streak"></span>
                     </div>
-                    <div id="player2Score" class="score-box">class="score-box">
+                    <div id="player2Score" class="score-box">
                         <span class="player-label">Player 2</span>
                         <span class="score">0</span>
                         <span class="streak"></span>
-                    </div>div>
+                    </div>
                 </div>
-                <div id="timer" class="timer">Time: 30s</div>iv id="timer" class="timer">Time: 30s</div>
-                <div class="current-player">Player 1's turn</div>r">Player 1's turn</div>
-                <div id="currentRequirement" class="requirement"></div>uirement" class="requirement"></div>
-                <div id="hint" class="hint"></div>"></div>
-                <div class="game-history" id="gameHistory"></div>iv class="game-history" id="gameHistory"></div>
-                <div class="input-section">  <div class="input-section">
-                    <input type="text" id="playerInput" placeholder="Enter NBA player name...">          <input type="text" id="playerInput" placeholder="Enter NBA player name...">
-                    <button onclick="submitName()">Submit</button>bmit</button>
-                    <button onclick="showHint()" class="hint-button">Get Hint</button>             <button onclick="showHint()" class="hint-button">Get Hint</button>
-                </div>         </div>
-                <div id="error" class="error"></div>                <div id="error" class="error"></div>
-
-
-
-
-
-
-
-
-
-
-
-</html></body>    <script type="module" src="./script.js"></script>    </div>        </div>            </div>                <div id="gameStats"></div>                <h3>Game Stats</h3>            <div class="stats-container">            </div>            </div>
+                <div id="timer" class="timer">Time: 30s</div>
+                <div class="current-player">Player 1's turn</div>
+                <div id="currentRequirement" class="requirement"></div>
+                <div id="hint" class="hint"></div>
+                <div class="game-history" id="gameHistory"></div>
+                <div class="input-section">
+                    <input type="text" id="playerInput" placeholder="Enter NBA player name...">
+                    <button onclick="submitName()">Submit</button>
+                    <button onclick="showHint()" class="hint-button">Get Hint</button>
+                </div>
+                <div id="error" class="error"></div>
+            </div>
             <div class="stats-container">
                 <h3>Game Stats</h3>
                 <div id="gameStats"></div>
             </div>
-
-
-</html>
-</body>
+        </div>
+    </div>
     <script type="module" src="./script.js"></script>
-    </div>        </div>
+</body>
+</html>
