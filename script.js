@@ -1,16 +1,4 @@
-// Expanded NBA players database
-const nbaPlayers = [
-    "Michael Jordan", "LeBron James", "Kobe Bryant", "Stephen Curry",
-    "Kevin Durant", "Magic Johnson", "Larry Bird", "Tim Duncan",
-    "Shaquille O'Neal", "Karl Malone", "John Stockton", "Charles Barkley",
-    "David Robinson", "Patrick Ewing", "Hakeem Olajuwon", "Dirk Nowitzki",
-    "Steve Nash", "Allen Iverson", "Ray Allen", "Paul Pierce",
-    "Mitch Richmond", "Roy Hibbert", "Horace Grant", "George Karl",
-    "Kawhi Leonard", "Dwyane Wade", "Chris Paul", "Damian Lillard", 
-    "Luka Doncic", "James Harden", "Giannis Antetokounmpo", "Scottie Pippen",
-    "Carmelo Anthony", "Russell Westbrook", "Kyrie Irving", "Kevin Garnett",
-    "Anthony Davis", "Chris Bosh", "Draymond Green", "Klay Thompson"
-];
+import { nbaPlayers } from './nbaPlayers.js';
 
 let gameHistory = [];
 let currentPlayer = 1;
