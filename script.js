@@ -64,29 +64,25 @@ let hintUsedThisTurn = false;
 // Add at the top with other state variables
 let isPaused = false;
 let savedTimeLeft = null;
+let isGameStarted = false;
 
 // Initialize game
 function initializeGame() {
-    // Clear any existing game state
+    scores = {1: 0, 2: 0};
+    correctStreaks = {1: 0, 2: 0};
+    currentPlayer = 1;
     gameHistory = [];
-    lastUsedNames.clear();
-    
-    // Select random player to start
-    const randomPlayer = nbaPlayers[Math.floor(Math.random() * nbaPlayers.length)];
-    
-    // Add to game history
-    gameHistory.push({ 
-        player: "Game is 21, check ball", 
-        name: randomPlayer,
-        correct: null
-    });
-    
-    // Add to used names
-    lastUsedNames.add(randomPlayer.toLowerCase());
-    
-    // Update displays
-    updateGameDisplay();
+    lastUsedNames = new Set();
+    document.getElementById('gameHistory').innerHTML = '';
     updateScoreDisplay();
+    
+    // Hide start button, show pause button
+    document.getElementById('startButton').style.display = 'none';
+    document.getElementById('pauseButton').style.display = 'block';
+    
+    isGameStarted = true;
+    isPaused = false;
+    startTurnTimer();
 }
 
 // Get required letter
@@ -352,6 +348,8 @@ function switchPlayer() {
 
 // Add pause toggle function
 window.togglePause = function() {
+    if (!isGameStarted) return;
+    
     const pauseButton = document.getElementById('pauseButton');
     isPaused = !isPaused;
     
@@ -368,4 +366,8 @@ window.togglePause = function() {
         // Re-enable input
         document.getElementById('playerInput').disabled = false;
     }
+}
+
+window.startGame = function() {
+    initializeGame();
 }
