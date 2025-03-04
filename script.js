@@ -12,7 +12,6 @@ let lastUsedNames = new Set();
 let scores = {1: 0, 2: 0};
 let correctStreaks = {1: 0, 2: 0};
 const funnyReferences = ["Brick!", "You missed a bunny!", "Airball!", "Off the backboard!", "Clang!"];
-let turnTimer;
 
 // Add stats tracking
 const gameStats = {
@@ -65,23 +64,41 @@ let hintUsedThisTurn = false;
 let isPaused = false;
 let savedTimeLeft = null;
 let isGameStarted = false;
+let turnTimer;
 
-// Initialize game
+// Add to your state variables at the top
+let currentRequiredLetter = '';
+
+function generateRandomLetter() {
+    return String.fromCharCode(65 + Math.floor(Math.random() * 26));
+}
+
+// Update the initialization function
 function initializeGame() {
+    // Reset game state
     scores = {1: 0, 2: 0};
     correctStreaks = {1: 0, 2: 0};
     currentPlayer = 1;
     gameHistory = [];
     lastUsedNames = new Set();
-    document.getElementById('gameHistory').innerHTML = '';
-    updateScoreDisplay();
-    
-    // Hide start button, show pause button
-    document.getElementById('startButton').style.display = 'none';
-    document.getElementById('pauseButton').style.display = 'block';
-    
     isGameStarted = true;
     isPaused = false;
+    
+    // Generate initial letter
+    currentRequiredLetter = generateRandomLetter();
+    
+    // Update UI elements
+    document.getElementById('gameHistory').innerHTML = '';
+    document.getElementById('currentRequirement').textContent = 
+        `Name an NBA player whose LAST name begins with "${currentRequiredLetter}"`;
+    document.getElementById('playerInput').disabled = false;
+    document.getElementById('playerInput').value = '';
+    document.getElementById('playerInput').focus();
+    
+    // Reset timer display
+    document.getElementById('timer').textContent = `Time: ${TURN_TIME_LIMIT}s`;
+    
+    updateScoreDisplay();
     startTurnTimer();
 }
 
@@ -93,19 +110,17 @@ function getRequiredLetter() {
     return lastNames[lastNames.length - 1][0].toUpperCase();
 }
 
-// Validate name
+// Update validateName function
 function validateName(name) {
     if (!name) return "Please enter a name";
     
-    // Convert input name to proper case for display
     const properName = name.split(' ')
         .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
         .join(' ');
     
-    // Check if name has been used (case-insensitive)
-    if (lastUsedNames.has(name.toLowerCase())) return "This name has already been used";
+    if (lastUsedNames.has(name.toLowerCase())) 
+        return "This name has already been used";
     
-    // Check if name exists in NBA players list (case-insensitive)
     const nameExists = nbaPlayers.some(player => 
         player.toLowerCase() === name.toLowerCase()
     );
@@ -115,13 +130,22 @@ function validateName(name) {
         return randomReference;
     }
     
-    const requiredLetter = getRequiredLetter();
-    if (requiredLetter && properName.charAt(0).toUpperCase() !== requiredLetter) {
-        return `Name must start with the letter ${requiredLetter}`;
+    // For the first turn, check if the last name starts with currentRequiredLetter
+    if (gameHistory.length === 0) {
+        const lastName = properName.split(' ').pop();
+        if (lastName[0].toUpperCase() !== currentRequiredLetter) {
+            return `Last name must start with the letter ${currentRequiredLetter}`;
+        }
+    } else {
+        const requiredLetter = getRequiredLetter();
+        if (requiredLetter) {
+            const lastName = properName.split(' ').pop();
+            if (lastName[0].toUpperCase() !== requiredLetter) {
+                return `Last name must start with the letter ${requiredLetter}`;
+            }
+        }
     }
     
-    // Store the proper case version in gameHistory
-    properName.trim();
     return null;
 }
 
@@ -264,27 +288,40 @@ document.getElementById("playerInput").addEventListener("keypress", function(eve
     }
 });
 
-// Initialize game when window loads
+// Remove the window.load event listener that auto-starts the game
+window.addEventListener('load', () => {
+    // Only initialize difficulty and other settings
+    document.getElementById('startButton').style.display = 'block';
+    document.getElementById('timeoutButton').style.display = 'none';
+    document.getElementById('playerInput').disabled = true;
+});
+
+// Initialize game when page loads
 window.addEventListener('load', () => {
     initializeGame();
-    startTurnTimer();
+    document.getElementById('playerInput').focus();
 });
 
 function startTurnTimer(resumeTime = null) {
+    if (!isGameStarted) return;
+
+    clearInterval(turnTimer);
     let timeLeft = resumeTime || TURN_TIME_LIMIT;
     const timerDiv = document.getElementById('timer');
     
-    clearInterval(turnTimer);
+    timerDiv.textContent = `Time: ${timeLeft}s`;
+    timerDiv.classList.remove('warning');
+
     turnTimer = setInterval(() => {
         if (!isPaused) {
             timeLeft--;
             timerDiv.textContent = `Time: ${timeLeft}s`;
             savedTimeLeft = timeLeft;
-            
+
             if (timeLeft <= 5) {
                 timerDiv.classList.add('warning');
             }
-            
+
             if (timeLeft <= 0) {
                 clearInterval(turnTimer);
                 handleTimeUp();
@@ -368,6 +405,39 @@ window.togglePause = function() {
     }
 }
 
-window.startGame = function() {
-    initializeGame();
+window.toggleTimeout = function() {
+    if (!isGameStarted) return;
+    
+    const timeoutButton = document.getElementById('timeoutButton');
+    isPaused = !isPaused;
+    
+    if (isPaused) {
+        clearInterval(turnTimer);
+        timeoutButton.textContent = '▶️ Resume';
+        timeoutButton.classList.add('paused');
+        document.getElementById('playerInput').disabled = true;
+        playSound('whistle');
+    } else {
+        startTurnTimer(savedTimeLeft);
+        timeoutButton.textContent = '⏸️ Timeout';
+        timeoutButton.classList.remove('paused');
+        document.getElementById('playerInput').disabled = false;
+        playSound('whistle');
+    }
+}
+
+function handleTimeUp() {
+    playSound('whistle');
+    scores[currentPlayer] -= 1;
+    gameHistory.push({ 
+        player: `Player ${currentPlayer}`, 
+        name: "(Shot Clock Violation)", 
+        correct: false,
+        error: "Shot Clock Violation! 🏀",
+        class: 'shot-clock'
+    });
+    switchPlayer();
+    updateGameDisplay();
+    updateScoreDisplay();
+    startTurnTimer();
 }
