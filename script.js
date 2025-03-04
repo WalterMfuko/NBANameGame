@@ -1,4 +1,7 @@
-import { nbaPlayers } from './nbaPlayers.js';
+import * as playerLists from './playerLists/index.js';
+
+// Combine all player lists into one array
+const nbaPlayers = Object.values(playerLists).flat();
 
 const WINNING_SCORE = 21;
 const TURN_TIME_LIMIT = 30; // seconds
@@ -57,6 +60,10 @@ function updateDifficulty(e) {
 
 // Add at the top with other state variables
 let hintUsedThisTurn = false;
+
+// Add at the top with other state variables
+let isPaused = false;
+let savedTimeLeft = null;
 
 // Initialize game
 function initializeGame() {
@@ -267,37 +274,25 @@ window.addEventListener('load', () => {
     startTurnTimer();
 });
 
-function startTurnTimer() {
-    let timeLeft = TURN_TIME_LIMIT;
+function startTurnTimer(resumeTime = null) {
+    let timeLeft = resumeTime || TURN_TIME_LIMIT;
     const timerDiv = document.getElementById('timer');
     
     clearInterval(turnTimer);
     turnTimer = setInterval(() => {
-        timeLeft--;
-        timerDiv.textContent = `Time: ${timeLeft}s`;
-        
-        // Add warning class when time is running low
-        if (timeLeft <= 5) {
-            timerDiv.classList.add('warning');
-        } else {
-            timerDiv.classList.remove('warning');
-        }
-        
-        if (timeLeft <= 0) {
-            clearInterval(turnTimer);
-            playSound('whistle');
-            scores[currentPlayer] -= 1;
-            gameHistory.push({ 
-                player: `Player ${currentPlayer}`, 
-                name: "(Shot Clock Violation)", 
-                correct: false,
-                error: "Shot Clock Violation! 🏀",
-                class: 'shot-clock'
-            });
-            switchPlayer();
-            updateGameDisplay();
-            updateScoreDisplay();
-            startTurnTimer();
+        if (!isPaused) {
+            timeLeft--;
+            timerDiv.textContent = `Time: ${timeLeft}s`;
+            savedTimeLeft = timeLeft;
+            
+            if (timeLeft <= 5) {
+                timerDiv.classList.add('warning');
+            }
+            
+            if (timeLeft <= 0) {
+                clearInterval(turnTimer);
+                handleTimeUp();
+            }
         }
     }, 1000);
 }
@@ -353,4 +348,24 @@ window.addEventListener('load', () => {
 function switchPlayer() {
     currentPlayer = currentPlayer === 1 ? 2 : 1;
     hintUsedThisTurn = false;
+}
+
+// Add pause toggle function
+window.togglePause = function() {
+    const pauseButton = document.getElementById('pauseButton');
+    isPaused = !isPaused;
+    
+    if (isPaused) {
+        clearInterval(turnTimer);
+        pauseButton.textContent = '▶️ Resume';
+        pauseButton.classList.add('paused');
+        // Disable input during pause
+        document.getElementById('playerInput').disabled = true;
+    } else {
+        startTurnTimer(savedTimeLeft);
+        pauseButton.textContent = '⏸️ Pause';
+        pauseButton.classList.remove('paused');
+        // Re-enable input
+        document.getElementById('playerInput').disabled = false;
+    }
 }
