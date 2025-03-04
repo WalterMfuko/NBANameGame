@@ -1,0 +1,22 @@
+export const playersU = [
+    "Ekpe Udoh",
+    "Beno Udrih",
+    "Tyler Ulis",
+    "Wes Unseld",
+    "Wes Unseld Jr.",
+    "Ben Uzoh",
+    "Jonas Ukmergis",
+    "Ime Udoka",
+    "Kelvin Upshaw",
+    "Hal Uplinger",
+    "James Usry",
+    "Ken Unterberger",
+    "Bill Unterberger",
+    "Jarrod Uthoff",
+    "Bob Utterback",
+    "Don Utter",
+    "Mel Utley",
+    "George Unseld",
+    "Roger Unangst",
+    "Devin Ugland"
+];
