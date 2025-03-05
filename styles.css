@@ -1,6 +1,10 @@
 :root {
-    --ec-green: #004d25;
-    --ec-gold: #fdb913;
+    /* Official NBA Colors */
+    --nba-blue: #17408B;
+    --nba-red: #C9082A;
+    --nba-white: #FFFFFF;
+    --nba-black: #000000;
+    --nba-silver: #EEEEEE;
 }
 
 * {
@@ -10,8 +14,8 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    font-family: 'Roboto', Arial, sans-serif;
+    background-color: var(--nba-silver);
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -27,13 +31,14 @@ body {
 .game-container {
     background-color: white;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
     overflow: hidden;
+    border: 2px solid var(--nba-blue);
 }
 
 .game-header {
-    background-color: var(--ec-green);
-    color: var(--ec-gold);
+    background-color: var(--nba-blue);
+    color: var(--nba-white);
     padding: 20px;
     text-align: center;
     font-size: 2.5em;
@@ -41,6 +46,7 @@ body {
     text-transform: uppercase;
     letter-spacing: 2px;
     margin: 0;
+    border-bottom: 4px solid var(--nba-red);
 }
 
 .game-content {
@@ -59,14 +65,14 @@ body {
     align-items: center;
     padding: 10px 20px;
     border-radius: 8px;
-    background-color: #f8f8f8;
-    border: 2px solid var(--ec-green);
+    background-color: var(--nba-white);
+    border: 2px solid var(--nba-blue);
     min-width: 120px;
 }
 
 .score-box.active {
-    background-color: var(--ec-green);
-    color: var(--ec-gold);
+    background-color: var(--nba-blue);
+    color: var(--nba-white);
 }
 
 .player-label {
@@ -81,7 +87,7 @@ body {
 
 .current-player {
     font-size: 1.4em;
-    color: var(--ec-green);
+    color: var(--nba-blue);
     text-align: center;
     margin-bottom: 15px;
     font-weight: bold;
@@ -89,8 +95,8 @@ body {
 
 .requirement {
     text-align: center;
-    color: var(--ec-gold);
-    background-color: var(--ec-green);
+    color: var(--nba-white);
+    background-color: var(--nba-red);
     padding: 10px;
     border-radius: 4px;
     margin: 15px 0;
@@ -98,8 +104,8 @@ body {
 }
 
 .game-history {
-    background-color: #f8f8f8;
-    border: 2px solid var(--ec-green);
+    background-color: var(--nba-white);
+    border: 2px solid var(--nba-blue);
     border-radius: 4px;
     padding: 15px;
     max-height: 200px;
@@ -113,11 +119,11 @@ body {
 }
 
 .game-history .correct {
-    color: green;
+    color: #008000;
 }
 
 .game-history .incorrect {
-    color: red;
+    color: var(--nba-red);
 }
 
 .input-section {
@@ -129,14 +135,14 @@ body {
 input[type="text"] {
     width: 100%;
     padding: 12px;
-    border: 2px solid var(--ec-green);
+    border: 2px solid var(--nba-blue);
     border-radius: 4px;
     font-size: 1.1em;
 }
 
 button {
-    background-color: var(--ec-green);
-    color: var(--ec-gold);
+    background-color: var(--nba-blue);
+    color: var(--nba-white);
     border: none;
     padding: 12px 20px;
     border-radius: 4px;
@@ -147,12 +153,12 @@ button {
 }
 
 button:hover {
-    background-color: #003d1e;
+    background-color: var(--nba-red);
     transform: translateY(-2px);
 }
 
 .error {
-    color: #ff0000;
+    color: var(--nba-red);
     text-align: center;
     margin-top: 10px;
     font-weight: bold;
@@ -161,10 +167,15 @@ button:hover {
 .hint-button {
     margin-top: 10px;
     width: 100%;
+    background-color: var(--nba-red);
+}
+
+.hint-button:hover {
+    background-color: #a5071e;
 }
 
 .hint {
-    color: #0066cc;
+    color: var(--nba-blue);
     text-align: center;
     margin-top: 10px;
     font-style: italic;
@@ -173,4 +184,70 @@ button:hover {
 .disabled {
     opacity: 0.5;
     cursor: not-allowed;
+}
+
+/* Help button and modal styles */
+.help-container {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.help-button {
+    background-color: var(--nba-black);
+    padding: 10px 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+    position: relative;
+    background-color: var(--nba-white);
+    margin: 10% auto;
+    padding: 20px;
+    border: 2px solid var(--nba-blue);
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: var(--nba-red);
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.instructions {
+    margin-top: 20px;
+}
+
+.instructions h3 {
+    color: var(--nba-blue);
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.instructions ul {
+    margin-left: 20px;
 }
