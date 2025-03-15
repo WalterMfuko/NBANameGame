@@ -3,68 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NBA Name Game</title>
-    <link rel="stylesheet" href="./styles.css">
+    <title>NameDrop</title>
+    <link rel="stylesheet" href="./landing.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <div class="game-container">
-            <h1 class="game-header">NBA Name Game</h1>
-            <div class="game-content">
-                <div class="scores-container">
-                    <div id="player1Score" class="score-box">
-                        <span class="player-label">Player 1</span>
-                        <span class="score">0</span>
-                    </div>
-                    <div id="player2Score" class="score-box">
-                        <span class="player-label">Player 2</span>
-                        <span class="score">0</span>
-                    </div>
-                </div>
-                <div class="current-player">Player 1's turn</div>
-                <div id="currentRequirement" class="requirement"></div>
-                <div class="game-history" id="gameHistory"></div>
-                <div class="input-section">
-                    <input type="text" id="playerInput" placeholder="Enter NBA player name...">
-                    <button onclick="submitName()">Submit</button>
-                    <button onclick="showHint()" class="hint-button">Get Hint (2 left)</button>
-                </div>
-                <div id="error" class="error"></div>
-                <div id="hint" class="hint"></div>
-            </div>
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    
+    <div class="intro-sequence">
+        <div class="logo-container">
+            <h1 class="main-title">NameDrop</h1>
+            <div class="tagline">The Ultimate Name Game</div>
         </div>
     </div>
-    <div class="help-container">
-        <button id="helpButton" class="help-button">Help / How to Play</button>
-    </div>
-
-    <!-- The Modal -->
-    <div id="helpModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>How to Play the NBA Name Game</h2>
-            <div class="instructions">
-                <h3>Basic Rules:</h3>
-                <p>1. Players take turns naming NBA players (past or present)</p>
-                <p>2. The first letter of your player's first name must match the first letter of the previous player's last name</p>
-                
-                <h3>Example:</h3>
-                <p>- If the previous player was "Michael Jordan"</p>
-                <p>- The next player must start with "J" (like "Jason Kidd")</p>
-                <p>- Then the next player must start with "K" (like "Kevin Durant")</p>
-                
-                <h3>Invalid Moves:</h3>
-                <ul>
-                    <li>Using a name that's already been used in this game</li>
-                    <li>Using a name with the wrong starting letter</li>
-                    <li>Using a name that's not in our NBA player database</li>
-                </ul>
-                
-                <h3>Hints:</h3>
-                <p>Each player gets 2 hints per turn. Click the hint button when needed.</p>
-            </div>
+    
+    <div class="category-container">
+        <h2 class="choose-text">CHOOSE YOUR CATEGORY</h2>
+        
+        <div class="category-grid">
+            <a href="nba.html" class="category-card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="https://i.imgur.com/XSoJJlX.png" alt="Basketball icon">
+                        <h3>NBA Players</h3>
+                    </div>
+                    <div class="card-back">
+                        <p>Test your knowledge of NBA players past and present</p>
+                        <div class="play-now">PLAY NOW</div>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="nfl.html" class="category-card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="https://i.imgur.com/NQ2eQYs.png" alt="Football icon">
+                        <h3>NFL Players</h3>
+                    </div>
+                    <div class="card-back">
+                        <p>Challenge yourself with NFL player names</p>
+                        <div class="play-now">PLAY NOW</div>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="presidents.html" class="category-card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="https://i.imgur.com/cGNY3h2.png" alt="President icon">
+                        <h3>Presidents</h3>
+                    </div>
+                    <div class="card-back">
+                        <p>How well do you know US Presidential names?</p>
+                        <div class="play-now">PLAY NOW</div>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="celebrities.html" class="category-card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="https://i.imgur.com/CZsZcGT.png" alt="Star icon">
+                        <h3>Celebrities</h3>
+                    </div>
+                    <div class="card-back">
+                        <p>Movie stars, musicians, and famous faces</p>
+                        <div class="play-now">PLAY NOW</div>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="movies.html" class="category-card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="https://i.imgur.com/wvQwGXv.png" alt="Movie icon">
+                        <h3>Movies</h3>
+                    </div>
+                    <div class="card-back">
+                        <p>Test your film knowledge with movie titles</p>
+                        <div class="play-now">PLAY NOW</div>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="disney.html" class="category-card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="https://i.imgur.com/VySvGpS.png" alt="Castle icon">
+                        <h3>Disney Characters</h3>
+                    </div>
+                    <div class="card-back">
+                        <p>Challenge yourself with Disney character names</p>
+                        <div class="play-now">PLAY NOW</div>
+                    </div>
+                </div>
+            </a>
         </div>
     </div>
-    <script src="./script.js"></script>
+    <script src="./landing.js"></script>
 </body>
 </html>

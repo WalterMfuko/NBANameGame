@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NameDrop - Presidents</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="game-container">
+            <h1 class="game-header">US Presidents</h1>
+            <div class="game-content">
+                <div class="scores-container">
+                    <div id="player1Score" class="score-box">
+                        <span class="player-label">You</span>
+                        <span class="score">0</span>
+                    </div>
+                    <div id="player2Score" class="score-box">
+                        <span class="player-label">Computer</span>
+                        <span class="score">0</span>
+                    </div>
+                </div>
+                <div class="current-player">Computer's turn</div>
+                <div id="currentRequirement" class="requirement"></div>
+                <div class="game-history" id="gameHistory"></div>
+                <div class="input-section">
+                    <input type="text" id="playerInput" placeholder="Enter president name...">
+                    <button onclick="submitName()">Submit</button>
+                    <button onclick="showHint()" class="hint-button">Hint (2 left)</button>
+                </div>
+                <div id="error" class="error"></div>
+                <div id="hint" class="hint"></div>
+                
+                <div class="stats-container">
+                    <div class="stat-box">
+                        <div class="stat-label">CURRENT STREAK</div>
+                        <div id="currentStreak" class="stat-value">0</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">BEST STREAK</div>
+                        <div id="maxStreak" class="stat-value">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="nav-buttons">
+        <a href="index.html" class="nav-button">Back to Categories</a>
+    </div>
+    
+    <div class="help-container">
+        <button id="helpButton" class="help-button">Help / How to Play</button>
+    </div>
+
+    <div id="helpModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>How to Play: US Presidents</h2>
+            <div class="instructions">
+                <h3>Basic Rules:</h3>
+                <p>1. The computer and you take turns naming US Presidents</p>
+                <p>2. The first letter of your president's first name must match the first letter of the previous president's last name</p>
+                
+                <h3>Example:</h3>
+                <p>- If the computer plays "George Washington"</p>
+                <p>- You must enter a president starting with "W" (like "William Clinton")</p>
+                <p>- Then the computer will play a name starting with "C"</p>
+                
+                <h3>Hints:</h3>
+                <p>You get 2 hints per turn. Click the hint button when needed.</p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="./data/presidents.js"></script>
+    <script src="./presidents.js"></script>
+</body>
+</html>
