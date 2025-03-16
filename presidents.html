@@ -5,34 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NameDrop - Presidents</title>
     <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./theme-presidents.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Add this div for the themed background -->
+    <div class="patriotic-bg"></div>
+    
+    <!-- Rest of your content -->
     <div class="container">
-        <div class="game-container">
-            <h1 class="game-header">US Presidents</h1>
+        <!-- Your existing content -->
+        <header class="game-header">
+            <a href="index.html" class="back-button">&larr;</a>
+            <h1 class="animate__animated animate__fadeInDown">PRESIDENTS</h1>
+            <div class="header-icon"><img src="Category Page Photos/presidents.png" alt="Presidential Icon"></div>
+        </header>
+        
+        <main class="game-container">
+            <div class="scores-container animate__animated animate__fadeInLeft">
+                <div id="player1Score" class="score-box">
+                    <span class="player-label">You</span>
+                    <span class="score">0</span>
+                </div>
+                <div id="player2Score" class="score-box">
+                    <span class="player-label">Computer</span>
+                    <span class="score">0</span>
+                </div>
+            </div>
+            
             <div class="game-content">
-                <div class="scores-container">
-                    <div id="player1Score" class="score-box">
-                        <span class="player-label">You</span>
-                        <span class="score">0</span>
-                    </div>
-                    <div id="player2Score" class="score-box">
-                        <span class="player-label">Computer</span>
-                        <span class="score">0</span>
-                    </div>
+                <div class="turn-indicator">
+                    <div class="current-player animate__animated animate__pulse animate__infinite">Computer's turn</div>
+                    <div id="currentRequirement" class="requirement"></div>
                 </div>
-                <div class="current-player">Computer's turn</div>
-                <div id="currentRequirement" class="requirement"></div>
-                <div class="game-history" id="gameHistory"></div>
-                <div class="input-section">
-                    <input type="text" id="playerInput" placeholder="Enter president name...">
-                    <button onclick="submitName()">Submit</button>
-                    <button onclick="showHint()" class="hint-button">Hint (2 left)</button>
-                </div>
-                <div id="error" class="error"></div>
-                <div id="hint" class="hint"></div>
                 
-                <div class="stats-container">
+                <div class="game-history-container">
+                    <h3 class="history-title">GAMEPLAY HISTORY</h3>
+                    <div class="game-history" id="gameHistory"></div>
+                </div>
+                
+                <div class="input-section animate__animated animate__fadeInUp">
+                    <input type="text" id="playerInput" placeholder="Enter president name...">
+                    <div class="buttons-row">
+                        <button onclick="submitName()" class="submit-button">Submit</button>
+                        <button onclick="showHint()" class="hint-button">Hint (2)</button>
+                    </div>
+                    <div id="error" class="error"></div>
+                    <div id="hint" class="hint"></div>
+                </div>
+                
+                <div class="stats-container animate__animated animate__fadeInRight">
                     <div class="stat-box">
                         <div class="stat-label">CURRENT STREAK</div>
                         <div id="currentStreak" class="stat-value">0</div>
@@ -43,15 +65,13 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    
-    <div class="nav-buttons">
-        <a href="index.html" class="nav-button">Back to Categories</a>
-    </div>
-    
-    <div class="help-container">
-        <button id="helpButton" class="help-button">Help / How to Play</button>
+        </main>
+        
+        <footer>
+            <div class="help-container">
+                <button id="helpButton" class="help-button">How to Play</button>
+            </div>
+        </footer>
     </div>
 
     <div id="helpModal" class="modal">

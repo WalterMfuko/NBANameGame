@@ -1,0 +1,314 @@
+:root {
+    --movie-primary: #1a1a1a; /* Dark gray/black for cinema feel */
+    --movie-secondary: #e50914; /* Netflix red */
+    --movie-accent: #ffd700; /* Gold for star/awards */
+    --movie-dark: #000000;
+    --movie-light: #f5f5f5;
+    --movie-text: #cccccc; /* Light text for dark backgrounds */
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--movie-dark);
+    margin: 0;
+    padding: 0;
+    position: relative;
+    min-height: 100vh;
+    color: var(--movie-light);
+}
+
+/* Cinematic background */
+.cinema-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(20,20,20,0.8) 100%),
+        url('https://i.imgur.com/V8rWPFz.png') center/cover no-repeat;
+    z-index: -1;
+    opacity: 0.8;
+}
+
+/* Film strip border */
+.cinema-bg::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 25px;
+    background-image: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 15px,
+        rgba(255,255,255,0.1) 15px,
+        rgba(255,255,255,0.1) 20px,
+        transparent 20px,
+        transparent 35px
+    );
+}
+
+.cinema-bg::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 25px;
+    background-image: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 15px,
+        rgba(255,255,255,0.1) 15px,
+        rgba(255,255,255,0.1) 20px,
+        transparent 20px,
+        transparent 35px
+    );
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header styling */
+.game-header {
+    background: linear-gradient(to right, #000000, #1a1a1a, #000000);
+    color: white;
+    padding: 20px;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    margin-bottom: 0;
+    border-bottom: 3px solid var(--movie-secondary);
+    overflow: hidden;
+}
+
+/* Spotlight effect */
+.game-header::before {
+    content: "";
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+.game-header h1 {
+    font-size: 2.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin: 0;
+    text-align: center;
+    color: var(--movie-accent);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+    position: relative;
+    z-index: 1;
+}
+
+/* Hollywood sign style */
+.game-header h1::before,
+.game-header h1::after {
+    content: "";
+    position: absolute;
+    height: 2px;
+    background: var(--movie-accent);
+    width: 50px;
+    top: 50%;
+}
+
+.game-header h1::before {
+    left: -70px;
+}
+
+.game-header h1::after {
+    right: -70px;
+}
+
+.back-button {
+    position: absolute;
+    left: 20px;
+    font-size: 24px;
+    color: white;
+    text-decoration: none;
+    background: var(--movie-secondary);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s;
+    box-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
+    z-index: 2;
+}
+
+.back-button:hover {
+    transform: scale(1/* filepath: c:\Users\littl\NBANameGame\theme-movies.css */
+:root {
+    --movie-primary: #1a1a1a; /* Dark gray/black for cinema feel */
+    --movie-secondary: #e50914; /* Netflix red */
+    --movie-accent: #ffd700; /* Gold for star/awards */
+    --movie-dark: #000000;
+    --movie-light: #f5f5f5;
+    --movie-text: #cccccc; /* Light text for dark backgrounds */
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--movie-dark);
+    margin: 0;
+    padding: 0;
+    position: relative;
+    min-height: 100vh;
+    color: var(--movie-light);
+}
+
+/* Cinematic background */
+.cinema-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(20,20,20,0.8) 100%),
+        url('https://i.imgur.com/V8rWPFz.png') center/cover no-repeat;
+    z-index: -1;
+    opacity: 0.8;
+}
+
+/* Film strip border */
+.cinema-bg::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 25px;
+    background-image: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 15px,
+        rgba(255,255,255,0.1) 15px,
+        rgba(255,255,255,0.1) 20px,
+        transparent 20px,
+        transparent 35px
+    );
+}
+
+.cinema-bg::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 25px;
+    background-image: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 15px,
+        rgba(255,255,255,0.1) 15px,
+        rgba(255,255,255,0.1) 20px,
+        transparent 20px,
+        transparent 35px
+    );
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header styling */
+.game-header {
+    background: linear-gradient(to right, #000000, #1a1a1a, #000000);
+    color: white;
+    padding: 20px;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    margin-bottom: 0;
+    border-bottom: 3px solid var(--movie-secondary);
+    overflow: hidden;
+}
+
+/* Spotlight effect */
+.game-header::before {
+    content: "";
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+.game-header h1 {
+    font-size: 2.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin: 0;
+    text-align: center;
+    color: var(--movie-accent);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+    position: relative;
+    z-index: 1;
+}
+
+/* Hollywood sign style */
+.game-header h1::before,
+.game-header h1::after {
+    content: "";
+    position: absolute;
+    height: 2px;
+    background: var(--movie-accent);
+    width: 50px;
+    top: 50%;
+}
+
+.game-header h1::before {
+    left: -70px;
+}
+
+.game-header h1::after {
+    right: -70px;
+}
+
+.back-button {
+    position: absolute;
+    left: 20px;
+    font-size: 24px;
+    color: white;
+    text-decoration: none;
+    background: var(--movie-secondary);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s;
+    box-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
+    z-index: 2;
+}
+
+.back-button:hover {
+    transform: scale(1
